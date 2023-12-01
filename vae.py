@@ -34,7 +34,7 @@ class VAE(nn.Module):
         # Replace "pass" statement with your code
         self.hidden_dim = 400
         self.encoder = nn.Sequential(
-            nn.Flatten(-1, input_size),
+            nn.Flatten(start_dim=1),
             nn.Linear(input_size, self.hidden_dim),
             nn.ReLU(),
         )
