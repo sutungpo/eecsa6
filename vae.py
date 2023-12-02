@@ -233,9 +233,10 @@ def loss_function(x_hat, x, mu, logvar):
     # notebook                                                                    #
     ###############################################################################
     # Replace "pass" statement with your code
+    B = x.shape[0]
     reconstruct_loss = F.binary_cross_entropy(x_hat, x, reduction="sum")
     kl_loss = -0.5 * (1 + logvar - mu**2 - logvar.exp()).sum()
-    loss = reconstruct_loss + kl_loss
+    loss = (reconstruct_loss + kl_loss) / B
     ###############################################################################
     #                            END OF YOUR CODE                                 #
     ###############################################################################
