@@ -60,6 +60,7 @@ class VAE(nn.Module):
             nn.ReLU(),
             nn.Linear(self.hidden_dim, input_size),
             nn.Sigmoid(),
+            nn.Unflatten(-1, (1, int(input_size**0.5), int(input_size**0.5))),
         )
         ###########################################################################
         #                                      END OF YOUR CODE                   #
@@ -95,7 +96,7 @@ class VAE(nn.Module):
         mu = self.mu_layer(hidden_x)
         logvar = self.logvar_layer(hidden_x)
         z = reparametrize(mu, logvar)
-        x_hat = self.decoder(z).view(x.shape)
+        x_hat = self.decoder(z)
         ###########################################################################
         #                                      END OF YOUR CODE                   #
         ###########################################################################
@@ -149,6 +150,7 @@ class CVAE(nn.Module):
             nn.ReLU(),
             nn.Linear(self.hidden_dim, input_size),
             nn.Sigmoid(),
+            nn.Unflatten(-1, (1, int(input_size**0.5), int(input_size**0.5))),
         )
         ###########################################################################
         #                                      END OF YOUR CODE                   #
@@ -188,7 +190,7 @@ class CVAE(nn.Module):
         logvar = self.logvar_layer(hidden_x)
         latten_x = reparametrize(mu, logvar)
         cat_z = torch.cat((latten_x, c), dim=1)
-        x_hat = self.decoder(cat_z).view(x.shape)
+        x_hat = self.decoder(cat_z)
         ###########################################################################
         #                                      END OF YOUR CODE                   #
         ###########################################################################
