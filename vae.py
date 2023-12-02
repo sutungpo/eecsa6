@@ -60,6 +60,7 @@ class VAE(nn.Module):
             nn.ReLU(),
             nn.Linear(self.hidden_dim, input_size),
             nn.Sigmoid(),
+            nn.Unflatten(1, (1, input_size**0.5, input_size**0.5)),
         )
         ###########################################################################
         #                                      END OF YOUR CODE                   #
@@ -95,7 +96,7 @@ class VAE(nn.Module):
         mu = self.mu_layer(hidden_x)
         logvar = self.logvar_layer(hidden_x)
         z = reparametrize(mu, logvar)
-        x_hat = self.decoder(z).view(x.shape)
+        x_hat = self.decoder(z)
         ###########################################################################
         #                                      END OF YOUR CODE                   #
         ###########################################################################
