@@ -188,7 +188,7 @@ class CVAE(nn.Module):
         logvar = self.logvar_layer(hidden_x)
         latten_x = reparametrize(mu, logvar)
         cat_z = torch.cat((latten_x, c), dim=1)
-        x_hat = self.decoder(cat_z)
+        x_hat = self.decoder(cat_z).view(x.shape)
         ###########################################################################
         #                                      END OF YOUR CODE                   #
         ###########################################################################
