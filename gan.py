@@ -28,7 +28,7 @@ def sample_noise(batch_size, noise_dim, dtype=torch.float, device="cpu"):
     # TODO: Implement sample_noise.                                              #
     ##############################################################################
     # Replace "pass" statement with your code
-    noise = 2 * torch.rand(batch_size, noise_dim) - 1
+    noise = 2 * torch.rand(batch_size, noise_dim, dtype=dtype, device=device) - 1
 
     ##############################################################################
     #                              END OF YOUR CODE                              #
