@@ -222,7 +222,19 @@ def build_dc_classifier():
     # TODO: Implement build_dc_classifier.                                     #
     ############################################################################
     # Replace "pass" statement with your code
-    pass
+    model = nn.Sequential(
+        nn.Unflatten(-1, (1, 28, 28)),
+        nn.Conv2d(1, 32, kernel_size=5),
+        nn.LeakyReLU(0.01),
+        nn.MaxPool2d(kernel_size=2, stride=2),
+        nn.Conv2d(32, 64, kernel_size=5),
+        nn.LeakyReLU(0.01),
+        nn.MaxPool2d(kernel_size=2, stride=2),
+        nn.Flatten(),
+        nn.Linear(1024, 1024),
+        nn.LeakyReLU(0.01),
+        nn.Linear(1024, 1),
+    )
     ############################################################################
     #                             END OF YOUR CODE                             #
     ############################################################################
@@ -240,7 +252,20 @@ def build_dc_generator(noise_dim=NOISE_DIM):
     # TODO: Implement build_dc_generator.                                      #
     ############################################################################
     # Replace "pass" statement with your code
-    pass
+    model = nn.Sequential(
+        nn.Linear(noise_dim, 1024),
+        nn.ReLU(),
+        nn.BatchNorm1d(1024),
+        nn.Linear(1024, 6272),
+        nn.ReLU(),
+        nn.BatchNorm1d(6272),
+        nn.Unflatten(-1, (128, 7, 7)),
+        nn.Conv2d(128, 64, kernel_size=4, stride=2, padding=1),
+        nn.ReLU(),
+        nn.BatchNorm2d(64),
+        nn.ConvTranspose2d(64, 1, kernel_size=4, stride=2, padding=1),
+        nn.Flatten(start_dim=1),
+    )
     ############################################################################
     #                             END OF YOUR CODE                             #
     ############################################################################
