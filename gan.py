@@ -179,7 +179,10 @@ def ls_discriminator_loss(scores_real, scores_fake):
     # TODO: Implement ls_discriminator_loss.                                     #
     ##############################################################################
     # Replace "pass" statement with your code
-    pass
+    loss_real = 0.5 * (scores_real - 1) ** 2
+    loss_fake = 0.5 * (scores_fake) ** 2
+
+    loss = loss_real.mean() + loss_fake.mean()
     ##############################################################################
     #                              END OF YOUR CODE                              #
     ##############################################################################
@@ -201,7 +204,8 @@ def ls_generator_loss(scores_fake):
     # TODO: Implement ls_generator_loss.                                         #
     ##############################################################################
     # Replace "pass" statement with your code
-    pass
+    loss = 0.5 * (scores_fake - 1) ** 2
+    loss = loss.mean()
     ##############################################################################
     #                              END OF YOUR CODE                              #
     ##############################################################################
